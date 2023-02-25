@@ -4,6 +4,8 @@ Market too far to go buy stuff? Industry line too obnoxious to setup for a few k
 
 The Tiny Factory will handle the industry lines for you. Just tell it what you want, turn it on, make sure it has ores and schematics, and it'll handle the rest! This Tiny Factory in a box, composed of only 20 industry units, can make any Basic, Uncommon, or Advanced item that can be produced by the XS, S, M, or L Assembly Line.
 
+https://du-creators.org/makers/Squizz/ship/Tiny%20Factory
+
 ## Instructions:
 
 To add an item, look it up by name on https://du-lua.dev/#/items
