@@ -9,17 +9,17 @@ The Tiny Factory will handle the industry lines for you. Just tell it what you w
 To add an item, look it up by name on https://du-lua.dev/#/items
 Enter the value below into the primary board, which is the one sitting on top of the pedestal. As you see in the examples, left side is the item id, right side is the item quantity. Then turn on the primary board! The programming boards will work together to handle the rest.
 
--- some example complicated items for testing your new Tiny Factory
-items[286542481] = 1 -- emergency control unit xs
-items[184261427] = 1 -- screen xs
-items[1866437084] = 1 -- remote controller xs
-items[3663249627] = 2 -- elevator xs
+    -- some example complicated items for testing your new Tiny Factory
+    items[286542481] = 1 -- emergency control unit xs
+    items[184261427] = 1 -- screen xs
+    items[1866437084] = 1 -- remote controller xs
+    items[3663249627] = 2 -- elevator xs
 
--- some example basic items for testing each assembly line
-items[1727614690] = 1 -- wing xs
-items[2532454166] = 1 -- wing s
-items[404188468] = 1 -- wing m
-items[2375915630] = 1 -- atmo engine l
+    -- some example basic items for testing each assembly line
+    items[1727614690] = 1 -- wing xs
+    items[2532454166] = 1 -- wing s
+    items[404188468] = 1 -- wing m
+    items[2375915630] = 1 -- atmo engine l
 
 ## FAQ:
 * I want to change what gets made, how do I do that? Just CTRL-L on the primary board, edit the values, and click Apply. Then turn the board on! If it was already on, turn it off and then back on again.
