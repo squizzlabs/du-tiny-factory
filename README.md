@@ -80,5 +80,8 @@ Future versions will include all Rare industries so that all tiers can be assemb
 
 # Update History
 
-v1.0.1 - Fixed bug in screen's programming board.
-v1.1.0 - Updated blueprints to include items for a schematics container. No software updates.
+* v1.1.2 - Big fix on ingredient checking for items with more than one recipe, such as Catalyst 3.
+* v1.1.1 - Minor bug fixes and other improvements
+* v1.1.0 - Minor bug fixes and other improvements
+* v1.0.1 - Fixed bug in screen's programming board.
+* v1.1.0 - Updated blueprints to include items for a schematics container. No software updates.
