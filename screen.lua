@@ -88,3 +88,6 @@ addText(l, font, "Input", 100, 485, 0)
 addText(l, font, "Line 1", 350, 485, 0)
 addText(l, font, "Line 2", 600, 485, 0)
 addText(l, font, "Output", 865, 485, 0)
+        
+requestAnimationFrame(1000)
+
