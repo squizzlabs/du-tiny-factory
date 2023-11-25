@@ -1,3 +1,26 @@
+--- -
+local colHeaders = {"Source", "Line 1", "Line 2", "Line 3", "Finished"}  --bottom row Hub labels
+local fontSize = 14 --on-screen font size
+
+--- -
+local rslib = require('rslib')
+if not init then
+    rx, ry = getResolution()
+    init = true
+end
+local font = loadFont('RobotoMono', fontSize)
+local config = { fontSize = fontSize}
+local l = createLayer()
+
+local y_pos = 511
+local x_width = rx / (#colHeaders+2)
+local x_pad = -0.3 * x_width
+        
+for colNo, thisHeader in ipairs(colHeaders) do
+    addText(l, font, thisHeader, x_pad + (x_width * colNo), y_pos, 0)
+    end
+
+--- -
 function strSplit(a,b)result={} for c in(a..b):gmatch("(.-)"..b) do table.insert(result,c) end; return result end
 
 function pad(text, pad)
@@ -39,16 +62,6 @@ function fixText(text)
     return names[text]
 end
 
-if not init then
-    rx, ry = getResolution()
-    init = true
-end
-local fontSize = 18
-local font = loadFont('RobotoMono', fontSize)
-local rslib = require('rslib')
-local config = { fontSize = fontSize}
-local l = createLayer()
-
 xcoords = {}
 xcoords[1] = 5
 xcoords[2] = 70
@@ -67,8 +80,11 @@ local white = ToColor(1, 1, 1, 1)
 local red = ToColor(1, 0, 0, 1)
 local green = ToColor(0, 1, 0, 1)
 
+local goldenRatio = 1.61803399        
+local grUsed = (goldenRatio - 1) /2
+        
 for i,text in pairs(strSplit(getInput(), "\n")) do
-    y = i * (fontSize + 4)
+    y = (i+1) * (fontSize + (fontSize * grUsed))
     split = strSplit(text, ",")
     local color = white
     if split[3] == "`R" then color = green end
@@ -83,11 +99,6 @@ for i,text in pairs(strSplit(getInput(), "\n")) do
         addText(l, font, pad( fixText(t:gsub("^||", "line")), padding[j]), xcoords[j], y, AlignH_Center, AlignV_Middle, ToColor(0.5, 0.5, 0.5, 0.5))    
     end
 end
-
-addText(l, font, "Input", 100, 485, 0)
-addText(l, font, "Line 1", 350, 485, 0)
-addText(l, font, "Line 2", 600, 485, 0)
-addText(l, font, "Output", 865, 485, 0)
         
 requestAnimationFrame(1000)
-
+--- eof ---
