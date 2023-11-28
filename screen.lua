@@ -1,24 +1,31 @@
 --- -
 local colHeaders = {"Source", "Line 1", "Line 2", "Finished"}  --bottom row Hub labels
 local fontSize = 14 --on-screen font size
-local topMargin = 22
+local topMargin = 22 --don't change at random
+local custom_col_header_yPos = -1 --don't change at random
 --- -
 local rslib = require('rslib')
 if not init then
     rx, ry = getResolution()
     init = true
 end
-local font = loadFont('RobotoMono', fontSize)
+
 local config = { fontSize = fontSize}
+local fontHeaderSize = fontSize+2
+local font = loadFont('RobotoMono', fontSize)
+local fontHeader = loadFont('RobotoMono', fontHeaderSize)
 local l = createLayer()
 
-local y_pos = 490
+DEFAULT_COL_HEADER_YPOS = 490
+local y_pos = DEFAULT_COL_HEADER_YPOS
+if custom_col_header_yPos ~= -1 then y_pos = custom_col_header_yPos end
+
 local x_width = rx / #colHeaders+1
 local x_pad = x_width / -2
 
 for colNo, thisHeader in ipairs(colHeaders) do
-    local backCenter = #thisHeader * fontSize / 2
-    addText(l, font, thisHeader, x_pad + (x_width * colNo) - backCenter, y_pos, 0)
+    local backCenter = #thisHeader * fontHeaderSize / 2
+    addText(l, fontHeader, thisHeader, x_pad + (x_width * colNo) - backCenter, y_pos, 0)
     end
 
 --- -
