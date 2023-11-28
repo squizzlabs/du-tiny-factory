@@ -83,8 +83,54 @@ local green = ToColor(0, 1, 0, 1)
 local goldenRatio = 1.61803399        
 local grUsed = (goldenRatio - 1) /2
         
-for i,text in pairs(strSplit(getInput(), "\n")) do
-    y = (i+1) * (fontSize + (fontSize * grUsed))
+--- screen display by priority START ---
+local screenRows = {}
+ screenRows['white'] = {}
+ screenRows['green'] = {}
+ screenRows['yellow'] = {}
+ screenRows['red'] = {}
+
+for _ , text in pairs(strSplit(getInput(), "\n")) do
+    split = strSplit(text, ",")
+    local typicalData = true
+    if split[3] == "`R" then 
+      table.insert(screenRows.green, text)
+      typicalData = false
+      end
+    if split[3] == "!!" then
+     table.insert(screenRows.yellow, text)
+      typicalData = false
+     end
+    if split[2] == "Refiner" and split[3] == '`W' then 
+      table.insert(screenRows.red, text)
+      typicalData = false
+      end
+    if typicalData then table.insert(screenRows.white, text) end
+end
+
+table.sort(screenRows.red)
+table.sort(screenRows.yellow)
+table.sort(screenRows.green)
+table.sort(screenRows.white)
+
+local priorityTable = {}
+for _,data in pairs(screenRows.red) do
+  table.insert(priorityTable, data)
+end
+for _,data in pairs(screenRows.yellow) do
+  table.insert(priorityTable, data)
+end
+for _,data in pairs(screenRows.green) do
+  table.insert(priorityTable, data)
+end
+for _,data in pairs(screenRows.white) do
+  table.insert(priorityTable, data)
+end
+
+local rowCount = 1
+local topMargin = 22
+for _,text in pairs(priorityTable) do
+    y = rowCount * (fontSize + (fontSize * grUsed)) + topMargin
     split = strSplit(text, ",")
     local color = white
     if split[3] == "`R" then color = green end
@@ -93,12 +139,15 @@ for i,text in pairs(strSplit(getInput(), "\n")) do
         color = red 
         split[3] = "!NEED ORE!"
     end
-
-    for j, t in pairs(split) do
-        setNextFillColor(l, color.r, color.g, color.b, color.o)
-        addText(l, font, pad( fixText(t:gsub("^||", "line")), padding[j]), xcoords[j], y, AlignH_Center, AlignV_Middle, ToColor(0.5, 0.5, 0.5, 0.5))    
+    if split[1] ~= "" then
+        rowCount = rowCount + 1
+        for j, t in pairs(split) do
+            setNextFillColor(l, color.r, color.g, color.b, color.o)
+            addText(l, font, pad( fixText(t:gsub("^||", "line")), padding[j]), xcoords[j], y, AlignH_Center, AlignV_Middle, ToColor(0.5, 0.5, 0.5, 0.5)) 
+        end
     end
 end
+--- screen display by priority END ---
         
 requestAnimationFrame(1000)
 --- eof ---
