@@ -1,7 +1,7 @@
 --- -
-local colHeaders = {"Source", "Line 1", "Line 2", "Line 3", "Finished"}  --bottom row Hub labels
+local colHeaders = {"Source", "Line 1", "Line 2", "Finished"}  --bottom row Hub labels
 local fontSize = 14 --on-screen font size
-
+local topMargin = 22
 --- -
 local rslib = require('rslib')
 if not init then
@@ -12,12 +12,13 @@ local font = loadFont('RobotoMono', fontSize)
 local config = { fontSize = fontSize}
 local l = createLayer()
 
-local y_pos = 511
-local x_width = rx / (#colHeaders+2)
-local x_pad = -0.3 * x_width
-        
+local y_pos = 490
+local x_width = rx / #colHeaders+1
+local x_pad = x_width / -2
+
 for colNo, thisHeader in ipairs(colHeaders) do
-    addText(l, font, thisHeader, x_pad + (x_width * colNo), y_pos, 0)
+    local backCenter = #thisHeader * fontSize / 2
+    addText(l, font, thisHeader, x_pad + (x_width * colNo) - backCenter, y_pos, 0)
     end
 
 --- -
@@ -80,9 +81,9 @@ local white = ToColor(1, 1, 1, 1)
 local red = ToColor(1, 0, 0, 1)
 local green = ToColor(0, 1, 0, 1)
 
-local goldenRatio = 1.61803399        
+local goldenRatio = 1.61803399
 local grUsed = (goldenRatio - 1) /2
-        
+
 --- screen display by priority START ---
 local screenRows = {}
  screenRows['white'] = {}
@@ -93,7 +94,7 @@ local screenRows = {}
 for _ , text in pairs(strSplit(getInput(), "\n")) do
     split = strSplit(text, ",")
     local typicalData = true
-    if split[3] == "`R" then 
+    if split[3] == "`R" then
       table.insert(screenRows.green, text)
       typicalData = false
       end
@@ -101,7 +102,7 @@ for _ , text in pairs(strSplit(getInput(), "\n")) do
      table.insert(screenRows.yellow, text)
       typicalData = false
      end
-    if split[2] == "Refiner" and split[3] == '`W' then 
+    if split[2] == "Refiner" and split[3] == '`W' then
       table.insert(screenRows.red, text)
       typicalData = false
       end
@@ -128,26 +129,25 @@ for _,data in pairs(screenRows.white) do
 end
 
 local rowCount = 1
-local topMargin = 22
 for _,text in pairs(priorityTable) do
     y = rowCount * (fontSize + (fontSize * grUsed)) + topMargin
     split = strSplit(text, ",")
     local color = white
     if split[3] == "`R" then color = green end
     if split[3] == "!!" then color = red end
-    if split[2] == "Refiner" and split[3] == '`W' then 
-        color = red 
+    if split[2] == "Refiner" and split[3] == '`W' then
+        color = red
         split[3] = "!NEED ORE!"
     end
     if split[1] ~= "" then
         rowCount = rowCount + 1
         for j, t in pairs(split) do
             setNextFillColor(l, color.r, color.g, color.b, color.o)
-            addText(l, font, pad( fixText(t:gsub("^||", "line")), padding[j]), xcoords[j], y, AlignH_Center, AlignV_Middle, ToColor(0.5, 0.5, 0.5, 0.5)) 
+            addText(l, font, pad( fixText(t:gsub("^||", "line")), padding[j]), xcoords[j], y, AlignH_Center, AlignV_Middle, ToColor(0.5, 0.5, 0.5, 0.5))
         end
     end
 end
 --- screen display by priority END ---
-        
+
 requestAnimationFrame(1000)
 --- eof ---
